@@ -1,0 +1,22 @@
+	TITLE PC Losering Demo
+
+;Worse is Better.
+;https://dreamsongs.com/RiseOfWorseIsBetter.html
+
+;One process can not observe another process (or itself) in
+;the middle of a system call.  For example, if there is an
+;interrupt or signal.
+;https://www.hack.org/~mc/texts/pclsr.txt
+
+A=1				;Accumulator 1
+TYIC==1				;"File descriptor" 1
+
+GO:	.OPEN TYIC,[.BAI,,'TTY] ;open("/dev/tty", O_RDONLY)
+	 .LOSE
+	MOVE A,[-100,,BUF]
+	.IOT TYIC,A		;read(tyic, buf, 100)
+	.VALUE
+
+BUF:	BLOCK 100
+
+END GO
